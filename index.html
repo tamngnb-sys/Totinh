@@ -1,1 +1,138 @@
-<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="theme-color" content="#8b0000"><title>Gửi nàng ❤️</title><style>*{margin:0;padding:0;box-sizing:border-box}body{height:100vh;overflow:hidden;background:radial-gradient(circle,#b30000,#3b0000);display:flex;justify-content:center;align-items:center;font-family:"Times New Roman",serif;color:#ffd36b}.box{width:90%;max-width:430px;text-align:center;padding:30px;border:3px solid #ffd36b;border-radius:25px;background:rgba(70,0,0,.75);box-shadow:0 0 40px #ffcc66}.lantern{position:fixed;top:20px;font-size:60px;animation:swing 2s infinite alternate}.l1{left:25px}.l2{right:25px}@keyframes swing{from{transform:rotate(-8deg)}to{transform:rotate(8deg)}}h1{font-size:36px;margin-bottom:20px;text-shadow:0 0 15px #ffcc66}#text{font-size:22px;line-height:1.7;min-height:160px}button{font-size:21px;padding:12px 25px;margin:10px;border:none;border-radius:30px;cursor:pointer}#yes{background:#ffd36b;color:#7a0000;font-weight:bold}#no{background:white;color:#7a0000}.petal{position:fixed;top:-30px;font-size:25px;animation:fall linear forwards}.heart{position:fixed;bottom:-20px;animation:fly 4s linear forwards}@keyframes fall{to{transform:translateY(110vh) rotate(360deg);opacity:0}}@keyframes fly{to{transform:translateY(-120vh);opacity:0}}</style></head><body><div class="lantern l1">🏮</div><div class="lantern l2">🏮</div><div class="box"><h1 id="title">缘起于你</h1><p id="text"></p><div id="buttons" style="display:none"><button id="yes" onclick="yes()">Đồng ý ❤️</button><button id="no" onclick="run()" onmouseover="run()">Không 😝</button></div></div><script>const msg="Nếu gặp em là duyên, thì anh mong duyên này sẽ kéo dài mãi mãi. Giữa nhân gian rộng lớn, anh chỉ muốn nắm tay em, cùng em đi qua những ngày bình yên nhất. Em làm người yêu anh nhé? ❤️";let i=0;const text=document.getElementById("text"),buttons=document.getElementById("buttons");function type(){if(i<msg.length){text.innerHTML+=msg.charAt(i);i++;setTimeout(type,70)}else{buttons.style.display="block"}}setTimeout(type,1000);function run(){let n=document.getElementById("no");n.style.position="fixed";n.style.left=Math.random()*75+"vw";n.style.top=Math.random()*75+"vh"}function yes(){document.body.innerHTML="<div style='height:100vh;background:radial-gradient(circle,#b30000,#3b0000);display:flex;justify-content:center;align-items:center;text-align:center;color:#ffd36b;flex-direction:column;font-family:serif'><h1 style='font-size:42px'>愿得一人心 ❤️</h1><h2>白首不相离</h2><p style='font-size:22px;margin-top:20px'>Cảm ơn em đã đồng ý bên anh 💕</p></div>";setInterval(heart,100)}function heart(){let h=document.createElement("div");h.className="heart";h.innerHTML="❤️";h.style.left=Math.random()*100+"vw";h.style.fontSize=Math.random()*25+15+"px";document.body.appendChild(h);setTimeout(()=>h.remove(),4000)}function petal(){let p=document.createElement("div");p.className="petal";p.innerHTML="🌸";p.style.left=Math.random()*100+"vw";p.style.animationDuration=Math.random()*3+4+"s";document.body.appendChild(p);setTimeout(()=>p.remove(),7000)}setInterval(petal,250);</script></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Snake Love Game</title>
+
+<style>
+body{
+    text-align:center;
+    background:#111;
+    color:white;
+    font-family:Arial;
+}
+
+canvas{
+    background:black;
+    margin-top:20px;
+    border:3px solid pink;
+}
+
+#msg{
+    display:none;
+    font-size:30px;
+    color:pink;
+    margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🐍 Ăn 5 quả táo để mở bí mật ❤️</h1>
+
+<p>Điểm: <span id="score">0</span></p>
+
+<canvas id="game" width="400" height="400"></canvas>
+
+<div id="msg">
+    <h2>❤️ Chúc mừng ❤️</h2>
+    <p>Em làm người yêu anh nhé?</p>
+
+    <button onclick="alert('❤️ Anh vui lắm ❤️')">
+        Đồng ý
+    </button>
+</div>
+
+<script>
+
+const canvas=document.getElementById("game");
+const ctx=canvas.getContext("2d");
+
+let box=20;
+
+let snake=[
+    {x:200,y:200}
+];
+
+let food={
+    x:Math.floor(Math.random()*20)*20,
+    y:Math.floor(Math.random()*20)*20
+};
+
+let dx=20;
+let dy=0;
+
+let score=0;
+
+document.addEventListener("keydown",e=>{
+
+    if(e.key==="ArrowUp"){
+        dx=0; dy=-20;
+    }
+
+    if(e.key==="ArrowDown"){
+        dx=0; dy=20;
+    }
+
+    if(e.key==="ArrowLeft"){
+        dx=-20; dy=0;
+    }
+
+    if(e.key==="ArrowRight"){
+        dx=20; dy=0;
+    }
+
+});
+
+function draw(){
+
+    ctx.clearRect(0,0,400,400);
+
+    ctx.fillStyle="red";
+    ctx.fillRect(food.x,food.y,20,20);
+
+    for(let s of snake){
+        ctx.fillStyle="lime";
+        ctx.fillRect(s.x,s.y,20,20);
+    }
+
+    let head={
+        x:snake[0].x+dx,
+        y:snake[0].y+dy
+    };
+
+    if(head.x===food.x && head.y===food.y){
+
+        score++;
+
+        document.getElementById("score").innerText=score;
+
+        food={
+            x:Math.floor(Math.random()*20)*20,
+            y:Math.floor(Math.random()*20)*20
+        };
+
+        if(score>=5){
+
+            clearInterval(game);
+
+            document.getElementById("msg").style.display="block";
+
+            return;
+        }
+
+    }else{
+        snake.pop();
+    }
+
+    snake.unshift(head);
+
+}
+
+let game=setInterval(draw,150);
+
+</script>
+
+</body>
+</html>
